@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire de Devoir de Conseil - COGESSUR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1E3A5F;
+            --cyan: #0EA5E9;
+            --magenta: #D946EF;
+            --light-gray: #F3F4F6;
+            --dark-gray: #6B7280;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: var(--dark-gray);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2a47 100%);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .form-wrapper {
+            padding: 40px;
+        }
+
+        .intro {
+            background: var(--light-gray);
+            border-left: 4px solid var(--cyan);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .intro strong {
+            color: var(--navy);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            border-bottom: 3px solid var(--magenta);
+            padding-bottom: 15px;
+        }
+
+        .section-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--cyan);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--cyan);
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            margin-bottom: 0;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .inline-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .inline-fields.two {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .inline-fields,
+            .inline-fields.two {
+                grid-template-columns: 1fr;
+            }
+
+            .form-wrapper {
+                padding: 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .alert {
+            background: rgba(217, 70, 239, 0.1);
+            border-left: 4px solid var(--magenta);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .alert strong {
+            color: var(--magenta);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border);
+        }
+
+        button {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--cyan) 0%, #0284c7 100%);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-reset {
+            background: var(--light-gray);
+            color: var(--navy);
+        }
+
+        .btn-reset:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message h3 {
+            color: #047857;
+            margin-bottom: 8px;
+        }
+
+        .success-message p {
+            color: #065f46;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: var(--light-gray);
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--dark-gray);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .required {
+            color: var(--magenta);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Questionnaire de Devoir de Conseil</h1>
+            <p>Investissement et Épargne | COGESSUR</p>
+        </div>
+
+        <div class="form-wrapper">
+            <div class="success-message" id="successMessage">
+                <h3>✓ Formulaire envoyé avec succès !</h3>
+                <p>Nous avons reçu votre questionnaire. Un conseiller vous contactera rapidement.</p>
+            </div>
+
+            <div class="intro">
+                <strong>Bienvenue !</strong> Ce questionnaire est conforme à nos obligations légales de « devoir de conseil » (DDA 2016/97). Il nous permet de bien vous connaître et de vous proposer une solution d'épargne/investissement parfaitement adaptée à votre situation. Tous les éléments restent confidentiels.
+            </div>
+
+            <form id="questionnaire" method="POST" action="https://formspree.io/f/mykapvga">
+                <!-- I. SITUATION FAMILIALE -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">I</div>
+                        <div class="section-title">SITUATION FAMILIALE</div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">1. Vous (client principal)</div>
+
+                        <div class="form-group">
+                            <label>Civilité <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="civility1" name="civility" value="Monsieur" required>
+                                    <label for="civility1">Monsieur</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="civility2" name="civility" value="Madame" required>
+                                    <label for="civility2">Madame</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="civility3" name="civility" value="Autre" required>
+                                    <label for="civility3">Autre</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inline-fields">
+                            <div class="form-group">
+                                <label>Nom d'usage <span class="required">*</span></label>
+                                <input type="text" name="client_nom_usage" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nom de naissance</label>
+                                <input type="text" name="client_nom_naissance">
+                            </div>
+                            <div class="form-group">
+                                <label>Prénom <span class="required">*</span></label>
+                                <input type="text" name="client_prenom" required>
+                            </div>
+                        </div>
+
+                        <div class="inline-fields two">
+                            <div class="form-group">
+                                <label>Date de naissance <span class="required">*</span></label>
+                                <input type="date" name="client_dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Résidence fiscale <span class="required">*</span></label>
+                                <input type="text" name="client_residence" placeholder="Pays ou région" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>US Person ?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="us1" name="us_person" value="Oui">
+                                    <label for="us1">Oui</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="us2" name="us_person" value="Non" checked>
+                                    <label for="us2">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Personne Politiquement Exposée ?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="ppe1" name="ppe" value="Oui">
+                                    <label for="ppe1">Oui</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="ppe2" name="ppe" value="Non" checked>
+                                    <label for="ppe2">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">2. Situation Matrimoniale</div>
+
+                        <div class="form-group">
+                            <label>Situation matrimoniale <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="marital1" name="marital_status" value="Célibataire" required>
+                                    <label for="marital1">Célibataire</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="marital2" name="marital_status" value="Marié(e)" required>
+                                    <label for="marital2">Marié(e)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="marital3" name="marital_status" value="PACS" required>
+                                    <label for="marital3">Partenaire PACS</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="marital4" name="marital_status" value="Divorcé(e)" required>
+                                    <label for="marital4">Divorcé(e)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="marital5" name="marital_status" value="Veuf/Veuve" required>
+                                    <label for="marital5">Veuf / Veuve</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Régime matrimonial (si marié(e)/PACS)</label>
+                            <select name="matrimonial_regime">
+                                <option value="">-- Sélectionner --</option>
+                                <option value="Communauté réduite aux acquêts">Communauté réduite aux acquêts</option>
+                                <option value="Séparation de biens">Séparation de biens</option>
+                                <option value="Participation aux acquêts">Participation aux acquêts</option>
+                                <option value="Communauté universelle">Communauté universelle</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">3. Personnes à Charge</div>
+
+                        <div class="form-group">
+                            <label>Enfants et personnes à charge (noms, âges)</label>
+                            <textarea name="dependants" placeholder="Ex: Emma (18 ans), Lucas (15 ans)"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- II. SITUATION PROFESSIONNELLE -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">II</div>
+                        <div class="section-title">SITUATION PROFESSIONNELLE</div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Profil Professionnel</div>
+
+                        <div class="form-group">
+                            <label>Statut professionnel <span class="required">*</span></label>
+                            <select name="professional_status" required>
+                                <option value="">-- Sélectionner --</option>
+                                <option value="Salarié privé">Salarié du secteur privé</option>
+                                <option value="Salarié public">Salarié du secteur public</option>
+                                <option value="Dirigeant assimilé salarié">Dirigeant assimilé salarié</option>
+                                <option value="Travailleur non salarié (TNS)">Travailleur non salarié (TNS)</option>
+                                <option value="Retraité">Retraité</option>
+                                <option value="Sans activité">Sans activité</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Profession (ou dernière profession)</label>
+                            <input type="text" name="profession">
+                        </div>
+
+                        <div class="alert">
+                            <strong>ℹ Si vous êtes TNS ou dirigeant :</strong> Merci de préciser ci-après votre régime social et le type de gérant.
+                        </div>
+
+                        <div class="form-group">
+                            <label>Régime social (si TNS)</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="regime1" name="tns_regime" value="SSI">
+                                    <label for="regime1">SSI (Sécurité Sociale Indépendants)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="regime2" name="tns_regime" value="Régime réel">
+                                    <label for="regime2">Régime réel</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="regime3" name="tns_regime" value="Micro-entrepreneur">
+                                    <label for="regime3">Micro-entrepreneur</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Type de gérant (si applicable)</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="gerant1" name="gerant_type" value="Gérant EIRL">
+                                    <label for="gerant1">Gérant EIRL</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="gerant2" name="gerant_type" value="Gérant majoritaire SARL">
+                                    <label for="gerant2">Gérant majoritaire SARL</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="gerant3" name="gerant_type" value="Gérant minoritaire SARL">
+                                    <label for="gerant3">Gérant minoritaire SARL</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="gerant4" name="gerant_type" value="PDG/Président">
+                                    <label for="gerant4">PDG / Président</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inline-fields two">
+                            <div class="form-group">
+                                <label>Dénomination sociale</label>
+                                <input type="text" name="company_name">
+                            </div>
+                            <div class="form-group">
+                                <label>Secteur d'activité</label>
+                                <input type="text" name="sector">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date envisagée de départ à la retraite</label>
+                            <input type="date" name="retirement_date">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- III. SITUATION PATRIMONIALE -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">III</div>
+                        <div class="section-title">SITUATION PATRIMONIALE</div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Revenus Professionnels Annuels</div>
+
+                        <div class="form-group">
+                            <label>Revenus nets d'impôt (détailler les sources)</label>
+                        </div>
+
+                        <div class="inline-fields">
+                            <div class="form-group">
+                                <label>Salaires/traitements (€)</label>
+                                <input type="number" name="income_salary" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Bénéfices professionnels (€)</label>
+                                <input type="number" name="income_business" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Revenus fonciers (€)</label>
+                                <input type="number" name="income_rental" min="0" step="100">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tranche marginale d'imposition estimée (optionnel)</label>
+                            <select name="marginal_tax_rate">
+                                <option value="">-- Non renseigné --</option>
+                                <option value="11%">11%</option>
+                                <option value="30%">30%</option>
+                                <option value="41%">41%</option>
+                                <option value="45%">45%</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Capacité d'Épargne</div>
+
+                        <div class="inline-fields">
+                            <div class="form-group">
+                                <label>Dépenses courantes (€/mois)</label>
+                                <input type="number" name="expenses_current" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Charges financières (€/mois)</label>
+                                <input type="number" name="expenses_financial" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Capacité d'épargne estimée (€/mois)</label>
+                                <input type="number" name="savings_capacity" min="0" step="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Endettement Actuel</div>
+
+                        <div class="form-group">
+                            <label>Endettement (crédits immobilier, consommation, etc.)</label>
+                            <textarea name="debt_details" placeholder="Ex: Crédit immobilier 150 000€ (15 ans restants), Prêt auto 12 000€ (3 ans)"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Disposez-vous d'une assurance emprunteur ?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="insurance1" name="borrower_insurance" value="Oui">
+                                    <label for="insurance1">Oui</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="insurance2" name="borrower_insurance" value="Non">
+                                    <label for="insurance2">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Composition du Patrimoine</div>
+
+                        <div class="form-group">
+                            <label>Résidence principale (valeur estimée €)</label>
+                            <input type="number" name="asset_primary_residence" min="0" step="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Résidence secondaire (valeur estimée €)</label>
+                            <input type="number" name="asset_secondary_residence" min="0" step="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Immobilier locatif (valeur estimée €)</label>
+                            <input type="number" name="asset_rental_property" min="0" step="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Livrets / Comptes courants (€)</label>
+                            <input type="number" name="asset_savings_accounts" min="0" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Compte-titres / PEA (€)</label>
+                            <input type="number" name="asset_securities_account" min="0" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Épargne retraite (Madelin, PER, PERO) (€)</label>
+                            <input type="number" name="asset_retirement_savings" min="0" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Assurance-vie en cours (€)</label>
+                            <input type="number" name="asset_life_insurance" min="0" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Autres actifs (€)</label>
+                            <input type="number" name="asset_other" min="0" step="100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IV. CONNAISSANCES FINANCIÈRES -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">IV</div>
+                        <div class="section-title">CONNAISSANCES FINANCIÈRES</div>
+                    </div>
+
+                    <div class="alert">
+                        <strong>Score : 0-9 points</strong> - Pour chaque produit, cochez la réponse qui correspond à votre compréhension.
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Fonds en euros :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_euro_funds" value="Garantie capital (1pt)">
+                                <label>Garantie en capital (totale ou partielle)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_euro_funds" value="Lié aux actions (0pt)">
+                                <label>Corrélé aux marchés actions</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_euro_funds" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Fonds monétaires :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_money_funds" value="Court terme (1pt)">
+                                <label>Placements court terme (bons du Trésor, TCN...)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_money_funds" value="Pouvoir achat (0pt)">
+                                <label>Maintiennent le pouvoir d'achat</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_money_funds" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Fonds obligataires :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_bond_funds" value="Taux sensibles (1pt)">
+                                <label>Sensibles aux taux d'intérêt</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_bond_funds" value="Aucun risque (0pt)">
+                                <label>Aucun risque de défaut</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_bond_funds" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Fonds actions :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_equity_funds" value="Marchés (1pt)">
+                                <label>Dépendent des marchés et de la santé des entreprises</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_equity_funds" value="Court terme (0pt)">
+                                <label>Adaptés au court terme</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_equity_funds" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Fonds structurés :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_structured" value="Garantie partielle (1pt)">
+                                <label>Garantie partielle du capital sous conditions</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_structured" value="Cotés (0pt)">
+                                <label>Produits cotés en bourse</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_structured" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Fonds immobiliers non cotés :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_real_estate" value="Valeur peut diminuer (1pt)">
+                                <label>La valeur peut diminuer</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_real_estate" value="Loyers seuls (0pt)">
+                                <label>Rendement exclusivement lié aux loyers</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_real_estate" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Unités de compte (en assurance-vie) :</strong></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_uc" value="Marchés (1pt)">
+                                <label>Dépendent des marchés (risque de perte)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_uc" value="Capital garanti (0pt)">
+                                <label>Garantissent le capital</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="knowledge_uc" value="Ne sais pas (0pt)">
+                                <label>Je ne sais pas</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- V. EXPÉRIENCE FINANCIÈRE -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">V</div>
+                        <div class="section-title">EXPÉRIENCE FINANCIÈRE</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Produits que vous connaissez et/ou détenez :</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod1" name="products_owned" value="Livrets">
+                                <label for="prod1">Livrets d'épargne</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod2" name="products_owned" value="Compte-titres">
+                                <label for="prod2">Compte-titres / PEA</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod3" name="products_owned" value="Assurance-vie">
+                                <label for="prod3">Assurance-vie</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod4" name="products_owned" value="Épargne retraite">
+                                <label for="prod4">Épargne retraite (Madelin, PER, PERO)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod5" name="products_owned" value="SCPI">
+                                <label for="prod5">SCPI / SCI</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod6" name="products_owned" value="Fonds à risque">
+                                <label for="prod6">Fonds à risque (actions, obligataires)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prod7" name="products_owned" value="Cryptomonnaies">
+                                <label for="prod7">Cryptomonnaies</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre d'opérations réalisées ces 12 derniers mois :</label>
+                        <input type="number" name="operations_12m" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mode de gestion habituel :</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="mgmt1" name="management_mode" value="Gestion libre">
+                                <label for="mgmt1">Gestion libre (vous décidez seul)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="mgmt2" name="management_mode" value="Accompagné">
+                                <label for="mgmt2">Accompagné par un conseiller</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="mgmt3" name="management_mode" value="Gestion déléguée">
+                                <label for="mgmt3">Gestion déléguée</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VI. PROFIL D'INVESTISSEUR -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">VI</div>
+                        <div class="section-title">PROFIL D'INVESTISSEUR</div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Votre appétit pour le risque</div>
+
+                        <div class="form-group">
+                            <label>Pour cet investissement, vous recherchez :</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="risk_appetite" value="Risque faible">
+                                    <label>Un risque faible avec un objectif de performance modéré</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="risk_appetite" value="Risque mesuré">
+                                    <label>Un risque mesuré avec un potentiel de performance équilibré</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="risk_appetite" value="Risque élevé">
+                                    <label>Un risque plus élevé avec un objectif de performance plus important</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">En cas de baisse de votre investissement</div>
+
+                        <div class="form-group">
+                            <label>Combien de temps seriez-vous prêt(e) à attendre avant un retour à la valeur initiale ?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="decline_tolerance" value="Moins 6 mois">
+                                    <label>Moins de 6 mois (court terme)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="decline_tolerance" value="6 mois - 3 ans">
+                                    <label>Entre 6 mois et 3 ans (moyen terme)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="decline_tolerance" value="Plus 3 ans">
+                                    <label>Plus de 3 ans (long terme)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Votre comportement passé</div>
+
+                        <div class="form-group">
+                            <label>Si vous avez connu une baisse de vos placements, comment avez-vous réagi ?</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="past_behavior" value="Vendu">
+                                    <label>J'ai vendu la majorité de mes placements</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="past_behavior" value="Conservé">
+                                    <label>J'ai conservé mes placements</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="past_behavior" value="Investi davantage">
+                                    <label>J'ai investi davantage</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="past_behavior" value="Jamais baisse">
+                                    <label>Je n'ai jamais connu de baisse significative</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VII. PROJET D'INVESTISSEMENT -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">VII</div>
+                        <div class="section-title">PROJET D'INVESTISSEMENT</div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Montant et Horizon</div>
+
+                        <div class="inline-fields two">
+                            <div class="form-group">
+                                <label>Montant à investir (€) <span class="required">*</span></label>
+                                <input type="number" name="investment_amount" min="0" step="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Quote-part du patrimoine (%)</label>
+                                <input type="number" name="investment_percent" min="0" max="100" step="1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Durée envisagée pour cet investissement <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_duration" value="Moins 1 an" required>
+                                    <label>Moins de 1 an</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_duration" value="1 à 3 ans" required>
+                                    <label>1 à 3 ans</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_duration" value="3 à 5 ans" required>
+                                    <label>3 à 5 ans</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_duration" value="5 à 8 ans" required>
+                                    <label>5 à 8 ans</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_duration" value="Plus 8 ans" required>
+                                    <label>Plus de 8 ans</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Objectif Principal</div>
+
+                        <div class="form-group">
+                            <label>Quel est l'objectif poursuivi ? <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_goal" value="Retraite" required>
+                                    <label>Préparer la retraite</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_goal" value="Transmission" required>
+                                    <label>Transmettre un capital au décès</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_goal" value="Épargne générale" required>
+                                    <label>Constituer une épargne générale</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_goal" value="Projet spécifique" required>
+                                    <label>Financer un projet spécifique</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="investment_goal" value="Revenus complémentaires" required>
+                                    <label>Compléter vos revenus</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert">
+                            <strong>Cohérence horizon/objectif :</strong> Vérifiez que l'horizon et l'objectif sont alignés (ex: retraite nécessite généralement > 5 ans).
+                        </div>
+
+                        <div class="form-group">
+                            <label>Justification si objectif et horizon semblent incohérents :</label>
+                            <textarea name="consistency_note" placeholder="Optionnel - Expliquez si besoin"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIII. DURABILITÉ -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">VIII</div>
+                        <div class="section-title">DÉVELOPPEMENT DURABLE & ESG</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vous êtes concerné(e) par les enjeux climatiques et le développement durable ?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="esg_concern" value="Oui, tout à fait">
+                                <label>Oui, tout à fait</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="esg_concern" value="Oui, mais pas priorité">
+                                <label>Oui, mais ce n'est pas ma priorité</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="esg_concern" value="Non">
+                                <label>Non, pas particulièrement</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Le fait qu'un produit intègre des critères ESG est-il indispensable ?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="esg_essential" value="Oui">
+                                <label>Oui, indispensable</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="esg_essential" value="Non">
+                                <label>Non, ce n'est pas un critère décisif</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>À produit équivalent, privilégieriez-vous un support intégrant des critères ESG ?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="esg_preference" value="Oui">
+                                <label>Oui, tout à fait</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="esg_preference" value="Non">
+                                <label>Non</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="esg_preference" value="Indifférent">
+                                <label>Sans préférence particulière</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Souhaitez-vous intégrer des produits contribuant à un objectif social/environnemental ?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="esg_integration" value="Oui">
+                                <label>Oui</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="esg_integration" value="Non">
+                                <label>Non</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Si oui, dans quelle proportion de l'investissement ?</label>
+                        <select name="esg_proportion">
+                            <option value="">-- Non applicable --</option>
+                            <option value="25%">25%</option>
+                            <option value="50%">50%</option>
+                            <option value="75%">75%</option>
+                            <option value="100%">100%</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- IX. BÉNÉFICIAIRES -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">IX</div>
+                        <div class="section-title">CLAUSE BÉNÉFICIAIRE & TRANSMISSION</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>En cas de décès, comment souhaitez-vous que le capital soit distribué ?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="beneficiary_choice" value="Conjoint 100%">
+                                <label>Conjoint / Partenaire pour 100%</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="beneficiary_choice" value="Enfants parts égales">
+                                <label>Enfants à parts égales</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="beneficiary_choice" value="Répartition personnalisée">
+                                <label>Répartition personnalisée</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="beneficiary_choice" value="Tiers bénéficiaires">
+                                <label>Tiers bénéficiaires (associations, etc.)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="beneficiary_choice" value="À rédiger ultérieurement">
+                                <label>À rédiger ultérieurement</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Détail de la répartition envisagée (noms, montants ou pourcentages) :</label>
+                        <textarea name="beneficiary_details" placeholder="Ex: Épouse 50%, Enfant 1 25%, Enfant 2 25%"></textarea>
+                    </div>
+                </div>
+
+                <!-- X. OBSERVATIONS -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">X</div>
+                        <div class="section-title">OBSERVATIONS FINALES</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Éléments importants concernant votre projet (contraintes particulières, aversions, contexte familial, etc.) :</label>
+                        <textarea name="additional_comments" placeholder="Libre - Développez ici tout élément pertinent non couvert par le questionnaire"></textarea>
+                    </div>
+                </div>
+
+                <!-- XI. DECLARATION -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-number">XI</div>
+                        <div class="section-title">DÉCLARATION & VALIDATION</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Documents reçus :</strong></label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="doc1" name="documents_received" value="DIP">
+                                <label for="doc1">Document d'Information Précontractuelle (DIP)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="doc2" name="documents_received" value="Notice">
+                               <label for="doc2">Notice d'information du produit/contrat</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="doc3" name="documents_received" value="Conditions générales">
+                                <label for="doc3">Conditions générales</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert">
+                        <strong>Déclaration importante :</strong><br>
+                        Je certifie que les informations fournies sont exactes et sincères. Elles sont nécessaires à l'établissement d'un conseil adapté à ma situation. J'ai fourni tous les éléments pertinents pour évaluer correctement mon profil d'investisseur.
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="declaration_acceptance" value="Accepté" required>
+                            Je confirme l'exactitude de ces informations et accepte cette déclaration <span class="required">*</span>
+                        </label>
+                    </div>
+
+                    <div class="inline-fields two">
+                        <div class="form-group">
+                            <label>Votre email <span class="required">*</span></label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Votre téléphone (optionnel)</label>
+                            <input type="tel" name="phone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">Envoyer le questionnaire</button>
+                    <button type="reset" class="btn-reset">Effacer</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <strong>COGESSUR</strong> – Courtage en Assurances de Personnes & Protection Sociale<br>
+            Évry, Île-de-France | Tél. 01 64 42 XX XX | www.cogessur.fr<br>
+            <br>
+            <a href="#">Politique de confidentialité</a> | <a href="#">Conditions générales</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('questionnaire');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            // Optional: Custom validation before submission
+            const email = form.querySelector('[name="email"]').value;
+            const declaration = form.querySelector('[name="declaration_acceptance"]').checked;
+
+            if (!email) {
+                e.preventDefault();
+                alert('Veuillez renseigner votre adresse email.');
+                return;
+            }
+
+            if (!declaration) {
+                e.preventDefault();
+                alert('Veuillez accepter la déclaration.');
+                return;
+            }
+
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Optional: Reset form after success
+            setTimeout(() => {
+                form.style.display = 'none';
+            }, 2000);
+        });
+
+        // Scroll to success message on submit
+        form.addEventListener('submit', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
